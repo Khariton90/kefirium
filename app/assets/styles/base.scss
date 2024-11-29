@@ -49,9 +49,17 @@ a {
 
 .header,
 .footer {
-	min-height: 80px;
-	padding: 20px;
+	min-height: 60px;
+	padding: 10px;
 	background: $color-green;
 	color: $color-white;
 	@include flex(row, center, center);
+}
+
+@media (min-width: $media-tablet) {
+	.header,
+	.footer {
+		min-height: 80px;
+		padding: 20px;
+	}
 }

@@ -1,9 +1,11 @@
 <template>
 	<main class="products">
-		<div v-if="!product?.id"></div>
-		<article v-else class="product-card">
+		<article class="product-card" v-if="!product">
+			<h2 class="product-name">Товар не найден</h2>
+			<NuxtLink class="link" to="/">Вернуться в каталог</NuxtLink>
+		</article>
+		<article class="product-card" v-else>
 			<NuxtLink class="link" :to="`/products/${product.id}`"></NuxtLink>
-
 			<figure class="product-image">
 				<img
 					:src="product.category.image"
@@ -17,29 +19,24 @@
 			<div class="product-pricing">
 				<span class="new-price">Новая цена: {{ product.price }} ₽</span>
 			</div>
-
 			<slot />
 		</article>
 	</main>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { type Product } from '~/entities/product'
 import { mockProductDetailsDto } from '~/entities/product/api/__mocks__/mock-product-details'
 const route = useRoute()
 const product: Ref<Product | null> = ref(null)
-const requestStatus = ref<'idle' | 'pending' | 'fulfilled' | 'rejected'>('idle')
 
-const id = typeof route.params.id === 'string' ? route.params.id : ''
+const id = route.params.id ?? ''
 
 async function fetchData() {
 	try {
-		requestStatus.value = 'pending'
 	} catch (error) {
-		requestStatus.value = 'rejected'
 	} finally {
-		product.value = mockProductDetailsDto(id)
-		requestStatus.value = 'fulfilled'
+		product.value = mockProductDetailsDto(id.toString())
 	}
 }
 

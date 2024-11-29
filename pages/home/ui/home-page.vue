@@ -10,12 +10,11 @@
 import { Filters } from '~/entities/filters'
 import { ProductList } from '~/widgets/product-list'
 import { ref, onMounted, watch } from 'vue'
-import { type Product } from '~/entities/product'
-import { mockProductsByCategory } from '~/entities/category/api/__mock__/mock-products-by-category'
+import { mockProductsByCategory } from '~/entities/category'
 import { useMainStore } from '~/app/store'
+import { type Product } from '~/entities/product'
 
 const productData: Ref<Product[] | []> = ref([])
-const requestStatus = ref<'idle' | 'pending' | 'fulfilled' | 'rejected'>('idle')
 const $store = useMainStore()
 const query = computed(() => $store.filter)
 const isLoading = computed(() => $store.isLoading)
@@ -26,15 +25,11 @@ watch(query, async (newValue, oldValue) => {
 	}
 })
 
-//Имитация запроса к серверу
 async function fetchData() {
 	try {
-		requestStatus.value = 'pending'
 	} catch (error) {
-		requestStatus.value = 'rejected'
 	} finally {
 		productData.value = [...mockProductsByCategory(query.value)]
-		requestStatus.value = 'fulfilled'
 		$store.setIsLoading(false)
 	}
 }

@@ -19,7 +19,6 @@ import { mockCartDto } from '~/entities/cart'
 
 const TIME_OUT = 200
 const productData: Ref<Product[] | []> = ref([])
-const requestStatus = ref<'idle' | 'pending' | 'fulfilled' | 'rejected'>('idle')
 const $store = useMainStore()
 const items = computed(() => $store.itemsMap)
 const isLoading = computed(() => $store.isLoading)
@@ -30,14 +29,13 @@ watch(items, async (newValue, oldValue) => {
 	}
 })
 
-//Имитация запроса
 async function fetchData() {
+	$store.setIsLoading(true)
 	try {
 	} catch (error) {
 	} finally {
 		$store.setIsLoading(false)
 		productData.value = [...mockCartDto($store.itemsMap)]
-		requestStatus.value = 'fulfilled'
 	}
 }
 onMounted(() => {

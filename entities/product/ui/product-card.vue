@@ -1,12 +1,10 @@
 <template>
-	<div v-if="!product"></div>
-
-	<article v-else class="product-card">
+	<article class="product-card">
 		<NuxtLink class="link" :to="`/products/${product.id}`"></NuxtLink>
 		<figure class="product-image">
 			<img
 				:src="product.category.image"
-				alt="Описание изображения товара"
+				:alt="product.description"
 				loading="lazy"
 			/>
 		</figure>
@@ -16,7 +14,6 @@
 		<div class="product-pricing">
 			<span class="new-price">Новая цена: {{ product.price }} ₽</span>
 		</div>
-
 		<slot />
 	</article>
 </template>
@@ -70,13 +67,13 @@ const { product } = defineProps<Props>()
 }
 
 .product-name {
-	font-size: 18px;
+	font-size: 1rem;
 	font-weight: 600;
 	margin-bottom: 5px;
 }
 
 .product-description {
-	font-size: 14px;
+	font-size: 0.8rem;
 	line-height: 1.5;
 	color: $color-black;
 }

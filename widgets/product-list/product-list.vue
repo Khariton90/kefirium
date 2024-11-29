@@ -27,15 +27,27 @@ const isLoading = computed(() => $store.isLoading)
 </script>
 
 <style lang="scss">
+.product-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
 .main {
 	@include flex(row, center, center);
 	height: 100%;
 }
 
-.product-list {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	flex-wrap: wrap;
-	gap: 20px;
+@media (min-width: $media-tablet) {
+	.product-list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: $media-desktop) {
+	.product-list {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 </style>
