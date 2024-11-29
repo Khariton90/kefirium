@@ -6,8 +6,9 @@ export default defineNuxtConfig({
 		layouts: './app/layouts',
 		plugins: './app/plugins',
 		public: './shared/public',
+		assets: './app/assets',
 	},
-	css: ['~/shared/base.scss'],
+	css: ['./app/assets/styles/base.scss'],
 	fonts: {
 		families: [{ name: 'roboto', provider: 'google' }],
 	},
