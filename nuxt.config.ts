@@ -1,11 +1,4 @@
 export default defineNuxtConfig({
-	generate: {
-		routes: ['/contacts', '/contacts'],
-	},
-	routeRules: {
-		'/': { prerender: true },
-		'/products/*': { ssr: true },
-	},
 	compatibilityDate: '2024-11-01',
 	devtools: { enabled: true },
 	dir: {
@@ -15,6 +8,16 @@ export default defineNuxtConfig({
 		public: './shared/public',
 	},
 	css: ['~/shared/base.scss'],
+	fonts: {
+		families: [{ name: 'roboto', provider: 'google' }],
+	},
+	generate: {
+		routes: ['/contacts', '/contacts'],
+	},
+	routeRules: {
+		'/': { prerender: true },
+		'/products/*': { ssr: true },
+	},
 	vite: {
 		css: {
 			preprocessorOptions: {
@@ -26,5 +29,5 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-	modules: ['@pinia/nuxt'],
+	modules: ['@pinia/nuxt', '@nuxt/fonts'],
 })
