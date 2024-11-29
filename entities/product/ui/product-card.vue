@@ -1,0 +1,92 @@
+<template>
+	<div v-if="!product"></div>
+
+	<article v-else class="product-card">
+		<NuxtLink class="link" :to="`/products/${product.id}`"></NuxtLink>
+		<figure class="product-image">
+			<img
+				:src="product.category.image"
+				alt="Описание изображения товара"
+				loading="lazy"
+			/>
+		</figure>
+		<h2 class="product-name">{{ product.title }}</h2>
+		<p class="product-category">{{ product.category.name }}</p>
+		<p class="product-description">{{ product.description }}</p>
+		<div class="product-pricing">
+			<span class="new-price">Новая цена: {{ product.price }} ₽</span>
+		</div>
+
+		<slot />
+	</article>
+</template>
+
+<script lang="ts" setup>
+import type { Product } from '../model/types'
+
+interface Props {
+	product: Product
+}
+
+const { product } = defineProps<Props>()
+</script>
+
+<style lang="scss">
+.product-card {
+	@include flex(column);
+	position: relative;
+	padding: 10px;
+	background-color: $color-white;
+	border-radius: 5px;
+	gap: 10px;
+	transition: transform 0.3s ease-in-out;
+	min-height: 400px;
+}
+
+.product-card:hover {
+	transform: scale(1.02);
+	box-shadow: $box-shadow;
+}
+
+.link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.product-image {
+	height: 200px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	& img {
+		width: 200px;
+		height: auto;
+		object-fit: cover;
+		border-radius: 5px;
+	}
+}
+
+.product-name {
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.product-description {
+	font-size: 14px;
+	line-height: 1.5;
+	color: $color-black;
+}
+
+.product-pricing {
+	@include flex(row, flex-end, center);
+}
+
+.new-price {
+	font-weight: 600;
+	color: $color-green;
+}
+</style>
