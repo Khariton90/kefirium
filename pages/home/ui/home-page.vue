@@ -14,6 +14,25 @@ import { mockProductsByCategory } from '~/entities/category'
 import { useMainStore } from '~/app/store'
 import { type Product } from '~/entities/product'
 
+useHead({
+	title: 'Kefirium | Каталог',
+	meta: [
+		{
+			hid: 'description',
+			name: 'description',
+			content: 'Каталог товаров Kefirium',
+		},
+		{ hid: 'keywords', name: 'keywords', content: 'каталог, товары, магазин' },
+	],
+})
+
+useSeoMeta({
+	title: 'Kefirium | Каталог',
+	ogTitle: 'Kefirium | Каталог',
+	description: 'Каталог товаров Kefirium',
+	ogDescription: 'Каталог товаров Kefirium',
+})
+
 const productData: Ref<Product[] | []> = ref([])
 const $store = useMainStore()
 const query = computed(() => $store.filter)
@@ -44,7 +63,14 @@ onMounted(() => {
 
 <style lang="scss">
 .base-list {
-	@include flex(row, space-between, flex-start);
+	@include flex(column, center, center);
 	column-gap: 40px;
+}
+
+@media (min-width: $media-tablet) {
+	.base-list {
+		@include flex(row, space-between, flex-start);
+		column-gap: 40px;
+	}
 }
 </style>

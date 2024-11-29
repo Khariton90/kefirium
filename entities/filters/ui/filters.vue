@@ -1,6 +1,6 @@
 <template>
 	<form class="filters">
-		<h2>Фильтры</h2>
+		<h2 class="filters-title">Фильтры</h2>
 		<label :for="item.id" v-for="item of filterList" :key="item.id">
 			<input
 				type="radio"
@@ -47,8 +47,20 @@ function handleChange(value) {
 </script>
 
 <style lang="scss">
+.filters-title {
+	line-height: 2rem;
+}
+
 .filters {
 	padding: 20px;
-	@include flex(column, flex-start, flex-start);
+	@include flex(row, center, center);
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+@media (min-width: $media-tablet) {
+	.filters {
+		@include flex(column, flex-start, flex-start);
+	}
 }
 </style>

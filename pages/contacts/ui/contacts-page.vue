@@ -27,7 +27,26 @@
 	</main>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+	title: 'Kefirium | Контакты',
+	meta: [
+		{
+			hid: 'description',
+			name: 'description',
+			content: 'Контакты Kefirium',
+		},
+		{ hid: 'keywords', name: 'keywords', content: 'контакты, телефон, email' },
+	],
+})
+
+useSeoMeta({
+	title: 'Kefirium | Контакты',
+	ogTitle: 'Kefirium | Контакты',
+	description: 'Контакты Kefirium',
+	ogDescription: 'Контакты Kefirium',
+})
+</script>
 
 <style lang="scss">
 .contact {
