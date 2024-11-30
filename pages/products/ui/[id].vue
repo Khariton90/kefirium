@@ -39,10 +39,6 @@ async function fetchData() {
 
 onMounted(() => {
 	fetchData()
-
-	if (!product.value?.id) {
-		return navigateTo('/')
-	}
 })
 </script>
 
