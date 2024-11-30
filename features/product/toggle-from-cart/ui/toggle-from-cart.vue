@@ -26,17 +26,15 @@ interface Props {
 
 const props = defineProps<Props>()
 const $store = useMainStore()
-let isChecked = ref($store.itemsMap.includes(props.id))
+const isChecked = ref($store.itemsMap.includes(props.id))
 
 function addToCartItem(id: string) {
 	isChecked.value = true
-	$store.increment()
 	$store.addItem(id)
 }
 
 function removeFromCart(id: string) {
 	isChecked.value = false
-	$store.decrement()
 	$store.removeItem(id)
 }
 </script>
@@ -45,13 +43,12 @@ function removeFromCart(id: string) {
 .add-to-cart {
 	position: relative;
 	z-index: 1;
-	padding: 8px 12px;
+	padding: 12px;
 	background-color: $color-green;
 	color: $color-white;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	margin-top: auto;
 
 	&:hover {
 		opacity: 0.8;

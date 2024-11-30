@@ -24,7 +24,6 @@ import type { Product } from '../model/types'
 interface Props {
 	product: Product
 }
-
 const { product } = defineProps<Props>()
 </script>
 
@@ -80,6 +79,7 @@ const { product } = defineProps<Props>()
 
 .product-pricing {
 	@include flex(row, flex-end, center);
+	margin-top: auto;
 }
 
 .new-price {

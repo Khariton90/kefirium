@@ -1,10 +1,6 @@
 <template>
 	<main class="products">
-		<article class="product-card" v-if="!product">
-			<h2 class="product-name">Товар не найден</h2>
-			<NuxtLink class="link" to="/">Вернуться в каталог</NuxtLink>
-		</article>
-		<article class="product-card" v-else>
+		<article class="product-card" v-if="product">
 			<NuxtLink class="link" :to="`/products/${product.id}`"></NuxtLink>
 			<figure class="product-image">
 				<img
@@ -19,28 +15,35 @@
 			<div class="product-pricing">
 				<span class="new-price">Новая цена: {{ product.price }} ₽</span>
 			</div>
-			<slot />
+			<ToggleFromCart :id="product.id" />
 		</article>
 	</main>
 </template>
 
 <script setup lang="ts">
 import { type Product } from '~/entities/product'
-import { mockProductDetailsDto } from '~/entities/product/api/__mocks__/mock-product-details'
+import { mockProductDetailsDto } from '~/entities/product'
+import { ToggleFromCart } from '~/features/product'
+
 const route = useRoute()
 const product: Ref<Product | null> = ref(null)
-
-const id = route.params.id ?? ''
+const id = route.params.id.toString() ?? ''
 
 async function fetchData() {
 	try {
 	} catch (error) {
 	} finally {
-		product.value = mockProductDetailsDto(id.toString())
+		product.value = mockProductDetailsDto(id)
 	}
 }
 
-fetchData()
+onMounted(() => {
+	fetchData()
+
+	if (!product.value?.id) {
+		return navigateTo('/')
+	}
+})
 </script>
 
 <style lang="scss">

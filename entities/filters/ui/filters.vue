@@ -36,7 +36,6 @@ const filterList = reactive([
 
 function handleChange(value) {
 	if (checked.value) {
-		$store.setIsLoading(true)
 		$store.changeCategory(value)
 		router.push({
 			path: '/',

@@ -7,6 +7,7 @@ export default defineNuxtConfig({
 		plugins: './app/plugins',
 		public: './shared/public',
 		assets: './app/assets',
+		middleware: './app/middleware',
 	},
 	css: ['./app/assets/styles/base.scss'],
 	fonts: {

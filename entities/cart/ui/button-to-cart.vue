@@ -11,7 +11,7 @@
 import { useMainStore } from '~/app/store'
 
 const $store = useMainStore()
-const count = computed(() => $store.counter)
+const count = computed(() => $store.itemsMap.length)
 </script>
 
 <style lang="scss">

@@ -1,11 +1,16 @@
 import { defineStore } from 'pinia'
 import { CategoryName } from '~/entities/category'
 
+interface MainState {
+	isLoading: boolean
+	itemsMap: string[]
+	filter: CategoryName
+}
+
 export const useMainStore = defineStore('main', {
-	state: () => ({
-		counter: 0,
+	state: (): MainState => ({
 		isLoading: false,
-		itemsMap: [] as string[],
+		itemsMap: [],
 		filter: CategoryName.Default,
 	}),
 	actions: {
@@ -14,12 +19,6 @@ export const useMainStore = defineStore('main', {
 		},
 		removeItem(id: string) {
 			this.itemsMap = this.itemsMap.filter(item => item !== id)
-		},
-		increment() {
-			this.counter++
-		},
-		decrement() {
-			this.counter--
 		},
 		setIsLoading(value: boolean) {
 			this.isLoading = value

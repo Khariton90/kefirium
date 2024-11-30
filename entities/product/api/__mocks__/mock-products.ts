@@ -15,11 +15,10 @@ export function generateMockProducts() {
 			price: faker.commerce.price(),
 			description: faker.commerce.productDescription(),
 			category: {
-				id: faker.number.int(),
+				id: faker.string.uuid(),
 				image: faker.image.avatar(),
 				name: item,
 			},
-			images: [''],
 		}
 
 		data.push(element)

@@ -1,24 +1,25 @@
 {
-  "name": "nuxt-app",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "dependencies": {
-    "@nuxt/fonts": "^0.10.2",
-    "@pinia/nuxt": "^0.8.0",
-    "nuxt": "^3.14.1592",
-    "pinia": "^2.2.8",
-    "vue": "^3.5.13",
-    "vue-router": "latest"
-  },
-  "devDependencies": {
-    "@faker-js/faker": "^9.2.0",
-    "sass": "^1.81.0"
-  }
+	"name": "nuxt-app",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@nuxt/fonts": "^0.10.2",
+		"@pinia/nuxt": "^0.8.0",
+		"@prisma/nuxt": "^0.1.2",
+		"nuxt": "^3.14.1592",
+		"pinia": "^2.2.8",
+		"vue": "^3.5.13",
+		"vue-router": "latest"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "^9.2.0",
+		"sass": "^1.81.0"
+	}
 }
