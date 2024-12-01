@@ -22,7 +22,7 @@ const count = computed(() => $store.itemsMap.length)
 
 	&:hover {
 		background-color: $color-white;
-		color: $color-green;
+		color: $color-base;
 	}
 }
 
@@ -36,5 +36,9 @@ const count = computed(() => $store.itemsMap.length)
 	color: $color-black;
 	border-radius: 50%;
 	text-align: center;
+	border: 1px solid $color-base;
+	font-size: 0.8rem;
+	@include flex(row, center, center);
+	color: $color-base;
 }
 </style>

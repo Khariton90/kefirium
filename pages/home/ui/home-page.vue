@@ -1,30 +1,19 @@
 <template>
-	<div class="base-list" v-if="isLoading">Загрузка...</div>
-	<div v-else class="base-list">
+	<div class="preloader" v-if="isLoading">Загрузка...</div>
+	<div v-else-if="productData.length" class="base-list">
 		<filters />
 		<product-list :products="productData" />
 	</div>
 </template>
 
 <script setup lang="ts">
+import { type Product } from '~/entities/product'
 import { Filters } from '~/entities/filters'
 import { ProductList } from '~/widgets/product-list'
 import { ref, onMounted, watch } from 'vue'
 import { mockProductsByCategory } from '~/entities/category'
 import { useMainStore } from '~/app/store'
-import { type Product } from '~/entities/product'
-
-useHead({
-	title: 'Kefirium | Каталог',
-	meta: [
-		{
-			hid: 'description',
-			name: 'description',
-			content: 'Каталог товаров Kefirium',
-		},
-		{ hid: 'keywords', name: 'keywords', content: 'каталог, товары, магазин' },
-	],
-})
+import { TIMEOUT_REQUEST } from '~/shared/model/contants'
 
 useSeoMeta({
 	title: 'Kefirium | Каталог',
@@ -32,9 +21,8 @@ useSeoMeta({
 	description: 'Каталог товаров Kefirium',
 	ogDescription: 'Каталог товаров Kefirium',
 })
-
-const productData: Ref<Product[] | []> = ref([])
 const $store = useMainStore()
+const productData: Ref<Product[] | []> = ref([])
 const query = computed(() => $store.filter)
 const isLoading = computed(() => $store.isLoading)
 
@@ -45,26 +33,29 @@ watch(query, async (newValue, oldValue) => {
 })
 
 async function fetchData() {
-	try {
-	} catch (error) {
-	} finally {
-		productData.value = [...mockProductsByCategory(query.value)]
-		$store.setIsLoading(false)
-	}
+	// Fake fetch request
+	productData.value = [...mockProductsByCategory(query.value)]
+	$store.setIsLoading(false)
 }
 
 onMounted(() => {
 	$store.setIsLoading(true)
 	setTimeout(() => {
 		fetchData()
-	})
+	}, TIMEOUT_REQUEST)
 })
 </script>
 
 <style lang="scss">
+.preloader {
+	@include flex(row, center, center);
+	height: 100%;
+}
+
 .base-list {
 	@include flex(column, center, center);
-	column-gap: 40px;
+	column-gap: 20px;
+	padding: 40px 0;
 }
 
 @media (min-width: $media-tablet) {

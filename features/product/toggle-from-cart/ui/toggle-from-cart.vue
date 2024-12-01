@@ -44,7 +44,7 @@ function removeFromCart(id: string) {
 	position: relative;
 	z-index: 1;
 	padding: 12px;
-	background-color: $color-green;
+	background-color: $color-base;
 	color: $color-white;
 	border: none;
 	border-radius: 5px;

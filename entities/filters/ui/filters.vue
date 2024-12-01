@@ -1,18 +1,20 @@
 <template>
-	<form class="filters">
-		<h2 class="filters-title">Фильтры</h2>
-		<label :for="item.id" v-for="item of filterList" :key="item.id">
-			<input
-				type="radio"
-				:name="item.name"
-				:value="item.value"
-				:id="item.id"
-				v-model="checked"
-				@change="handleChange($event.target.value)"
-			/>
-			{{ item.value }}
-		</label>
-	</form>
+	<aside class="aside">
+		<form class="filters">
+			<h2 class="filters-title">Фильтры</h2>
+			<label :for="item.id" v-for="item of filterList" :key="item.id">
+				<input
+					type="radio"
+					:name="item.name"
+					:value="item.value"
+					:id="item.id"
+					v-model="checked"
+					@change="handleChange($event.target.value)"
+				/>
+				{{ item.value }}
+			</label>
+		</form>
+	</aside>
 </template>
 
 <script setup>
@@ -46,12 +48,15 @@ function handleChange(value) {
 </script>
 
 <style lang="scss">
+.aside {
+	width: 300px;
+}
+
 .filters-title {
 	line-height: 2rem;
 }
 
 .filters {
-	padding: 20px;
 	@include flex(row, center, center);
 	gap: 10px;
 	flex-wrap: wrap;

@@ -12,7 +12,7 @@
 		<p class="product-category">{{ product.category.name }}</p>
 		<p class="product-description">{{ product.description }}</p>
 		<div class="product-pricing">
-			<span class="new-price">Новая цена: {{ product.price }} ₽</span>
+			<span class="new-price">Цена: {{ product.price }} ₽</span>
 		</div>
 		<slot />
 	</article>
@@ -36,7 +36,10 @@ const { product } = defineProps<Props>()
 	border-radius: 5px;
 	gap: 10px;
 	transition: transform 0.3s ease-in-out;
-	min-height: 400px;
+	height: 420px;
+	width: 280px;
+	box-shadow: $box-shadow;
+	text-align: center;
 }
 
 .product-card:hover {
@@ -71,6 +74,11 @@ const { product } = defineProps<Props>()
 	margin-bottom: 5px;
 }
 
+.product-category {
+	font-weight: 600;
+	color: $color-base;
+}
+
 .product-description {
 	font-size: 0.8rem;
 	line-height: 1.5;
@@ -84,6 +92,6 @@ const { product } = defineProps<Props>()
 
 .new-price {
 	font-weight: 600;
-	color: $color-green;
+	color: $color-base;
 }
 </style>

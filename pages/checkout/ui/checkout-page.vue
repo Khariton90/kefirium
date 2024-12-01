@@ -11,23 +11,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ProductList } from '~/widgets/product-list'
 import { ref, onMounted, watch } from 'vue'
 import { type Product } from '~/entities/product'
+import { ProductList } from '~/widgets/product-list'
 import { useMainStore } from '~/app/store'
 import { mockCartDto } from '~/entities/cart'
-
-useHead({
-	title: 'Kefirium | Корзина',
-	meta: [
-		{
-			hid: 'description',
-			name: 'description',
-			content: 'Корзина Kefirium',
-		},
-		{ hid: 'keywords', name: 'keywords', content: 'корзина, товары, заказ' },
-	],
-})
+import { TIMEOUT_REQUEST } from '~/shared/model/contants'
 
 useSeoMeta({
 	title: 'Kefirium | Корзина',
@@ -36,33 +25,28 @@ useSeoMeta({
 	ogDescription: 'Корзина Kefirium',
 })
 
-const TIME_OUT = 200
 const productData: Ref<Product[] | []> = ref([])
 const $store = useMainStore()
 const items = computed(() => $store.itemsMap)
 const isLoading = computed(() => $store.isLoading)
 
-watch(items, async (newValue, oldValue) => {
+watch(items, (newValue, oldValue) => {
 	if (newValue !== oldValue) {
-		await fetchData()
+		fetchData()
 	}
 })
 
 async function fetchData() {
-	$store.setIsLoading(true)
-	try {
-	} catch (error) {
-	} finally {
-		$store.setIsLoading(false)
-		productData.value = [...mockCartDto($store.itemsMap)]
-	}
+	// Fake fetch request
+	productData.value = [...mockCartDto($store.itemsMap)]
+	$store.setIsLoading(false)
 }
+
 onMounted(() => {
 	$store.setIsLoading(true)
-
 	setTimeout(() => {
 		fetchData()
-	}, TIME_OUT)
+	}, TIMEOUT_REQUEST)
 })
 </script>
 
