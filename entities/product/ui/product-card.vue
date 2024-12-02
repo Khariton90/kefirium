@@ -1,6 +1,6 @@
 <template>
 	<article class="product-card">
-		<NuxtLink class="link" :to="`/products/${product.id}`"></NuxtLink>
+		<NuxtLink class="link" :to="`/products/${product.id}`" />
 		<figure class="product-image">
 			<img
 				:src="product.category.image"
@@ -36,8 +36,8 @@ const { product } = defineProps<Props>()
 	border-radius: 5px;
 	gap: 10px;
 	transition: transform 0.3s ease-in-out;
-	height: 420px;
-	width: 280px;
+	height: 460px;
+	width: 300px;
 	box-shadow: $box-shadow;
 	text-align: center;
 }
@@ -55,13 +55,12 @@ const { product } = defineProps<Props>()
 }
 
 .product-image {
-	height: 200px;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	& img {
-		width: 200px;
+		width: 100%;
 		height: auto;
 		object-fit: cover;
 		border-radius: 5px;

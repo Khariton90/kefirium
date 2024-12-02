@@ -1,8 +1,11 @@
 <template>
-	<div class="preloader" v-if="isLoading">Загрузка...</div>
-	<div v-else-if="productData.length" class="base-list">
+	<Preloader v-if="isLoading" />
+	<div class="base-list" v-else-if="productData.length">
 		<filters />
 		<product-list :products="productData" />
+	</div>
+	<div class="base-list" v-else>
+		<h2>Мы не нашли подходящих товаров</h2>
 	</div>
 </template>
 
@@ -10,10 +13,11 @@
 import { type Product } from '~/entities/product'
 import { Filters } from '~/entities/filters'
 import { ProductList } from '~/widgets/product-list'
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { mockProductsByCategory } from '~/entities/category'
 import { useMainStore } from '~/app/store'
-import { TIMEOUT_REQUEST } from '~/shared/model/contants'
+import { wait } from '~/shared/lib/wait'
+import { Preloader } from '~/widgets/preloader'
 
 useSeoMeta({
 	title: 'Kefirium | Каталог',
@@ -33,35 +37,27 @@ watch(query, async (newValue, oldValue) => {
 })
 
 async function fetchData() {
-	// Fake fetch request
+	$store.setIsLoading(true)
+	await wait()
 	productData.value = [...mockProductsByCategory(query.value)]
 	$store.setIsLoading(false)
 }
 
 onMounted(() => {
-	$store.setIsLoading(true)
-	setTimeout(() => {
-		fetchData()
-	}, TIMEOUT_REQUEST)
+	fetchData()
 })
 </script>
 
 <style lang="scss">
-.preloader {
-	@include flex(row, center, center);
-	height: 100%;
-}
-
 .base-list {
 	@include flex(column, center, center);
-	column-gap: 20px;
+	gap: 40px;
 	padding: 40px 0;
 }
 
 @media (min-width: $media-tablet) {
 	.base-list {
 		@include flex(row, space-between, flex-start);
-		column-gap: 40px;
 	}
 }
 </style>

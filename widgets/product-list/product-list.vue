@@ -1,6 +1,5 @@
 <template>
-	<main class="product-list" v-if="!products.length">Ничего не найдено</main>
-	<main class="product-list" v-else>
+	<main class="product-list">
 		<product-card
 			v-for="product of props.products"
 			:key="product.id"

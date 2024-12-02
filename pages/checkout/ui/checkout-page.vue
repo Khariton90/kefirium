@@ -1,13 +1,10 @@
 <template>
-	<div class="shopping-cart" v-if="isLoading">Загрузка...</div>
-	<div class="shopping-cart" v-else-if="!items.length">
+	<Preloader v-if="isLoading" />
+	<div class="shopping-cart" v-else-if="!productData.length">
 		<h2>Корзина пуста</h2>
 		<NuxtLink to="/">Вернуться в каталог</NuxtLink>
 	</div>
-
-	<div class="shopping-cart" v-else>
-		<product-list :products="productData" />
-	</div>
+	<product-list v-else :products="productData" />
 </template>
 
 <script lang="ts" setup>
@@ -16,7 +13,8 @@ import { type Product } from '~/entities/product'
 import { ProductList } from '~/widgets/product-list'
 import { useMainStore } from '~/app/store'
 import { mockCartDto } from '~/entities/cart'
-import { TIMEOUT_REQUEST } from '~/shared/model/contants'
+import { wait } from '~/shared/lib/wait'
+import { Preloader } from '~/widgets/preloader'
 
 useSeoMeta({
 	title: 'Kefirium | Корзина',
@@ -37,16 +35,14 @@ watch(items, (newValue, oldValue) => {
 })
 
 async function fetchData() {
-	// Fake fetch request
+	$store.setIsLoading(true)
+	await wait()
 	productData.value = [...mockCartDto($store.itemsMap)]
 	$store.setIsLoading(false)
 }
 
 onMounted(() => {
-	$store.setIsLoading(true)
-	setTimeout(() => {
-		fetchData()
-	}, TIMEOUT_REQUEST)
+	fetchData()
 })
 </script>
 
@@ -55,5 +51,6 @@ onMounted(() => {
 	@include flex(column, center, center);
 	gap: 20px;
 	height: 100%;
+	padding: 40px 0;
 }
 </style>

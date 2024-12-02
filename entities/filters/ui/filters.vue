@@ -48,10 +48,6 @@ function handleChange(value) {
 </script>
 
 <style lang="scss">
-.aside {
-	width: 300px;
-}
-
 .filters-title {
 	line-height: 2rem;
 }
